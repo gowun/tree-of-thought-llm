@@ -75,7 +75,8 @@ class Game24Task(Task):
     @staticmethod
     def value_prompt_wrap(x: str, y: str) -> str:
         last_line = y.strip().split('\n')[-1]
-        if 'left: ' not in last_line:  # last step
+        print(f'\nlast line: {last_line}\n')
+        if 'left: ' not in last_line: #or len(last_line[last_line.index('left: ') + 6:-1].split(' ')) == 1:  # last step
             ans = last_line.lower().replace('answer: ', '')
             # print([value_last_step_prompt.format(input=x, answer=ans)])
             return value_last_step_prompt.format(input=x, answer=ans)
@@ -84,6 +85,7 @@ class Game24Task(Task):
     
     @staticmethod
     def value_outputs_unwrap(x: str, y: str, value_outputs: list) -> float:
+        print(value_outputs)
         if len(y.strip().split('\n')) == 4 and 'answer' not in y.lower():
             return 0
         value_names = [_.split('\n')[-1] for _ in value_outputs]
